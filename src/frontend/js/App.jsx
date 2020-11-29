@@ -1,3 +1,5 @@
+/* eslint react/jsx-fragments: 0 */
+
 import React from 'react'
 import ReactDOM from 'react-dom'
 
@@ -6,11 +8,11 @@ import Board from './Board'
 
 const App = () => {
   return (
-    <div id='app'>
+    <React.Fragment>
       <h2>Online Chess</h2>
       <p>Play chess against an online player</p>
       <Board />
-    </div>
+    </React.Fragment>
   )
 }
 

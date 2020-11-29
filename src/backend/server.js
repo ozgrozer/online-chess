@@ -12,13 +12,13 @@ const getTimeForConsole = () => new Date(Date.now()).toLocaleString() + ':'
 
 const port = process.env.PORT || defaults.site.port
 app.listen(port, () => {
-  console.log(getTimeForConsole(), `${defaults.site.name}: http://localhost:${port}`)
+  console.log(getTimeForConsole(), `${defaults.site.title}: http://localhost:${port}`)
 })
 
 app.get('*', (req, res) => {
   res.render('app', {
     defaults: {
-      siteName: defaults.site.name
+      siteTitle: defaults.site.title
     }
   })
 })
