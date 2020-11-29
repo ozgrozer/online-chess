@@ -120,36 +120,31 @@ const Board = () => {
     piece.selected = !selected
     setPieces([...pieces])
 
-    setSelectedPiece(`${piece.color} ${piece.name} (${piece.selected ? 'selected' : 'not selected'})`)
+    setSelectedPiece(`${piece.color} ${piece.name} ${piece.coordinates.file}${piece.coordinates.rank}`)
   }
 
   const PlacePieces = () => {
     return (
       <React.Fragment>
         {pieces.map((piece, key) => {
-          const pieceCoordinates_ = Object.prototype.hasOwnProperty.call(piece, 'coordinates')
-            ? piece.coordinates
-            : {}
-          const pieceCoordinates = coordinates[pieceCoordinates_.file + pieceCoordinates_.rank]
-          if (pieceCoordinates) {
-            const style = {
-              width: defaults.square.size,
-              height: defaults.square.size,
-              top: `${pieceCoordinates.y}px`,
-              left: `${pieceCoordinates.x}px`,
-              backgroundColor: piece.selected ? defaults.square.colors.selected : '',
-              backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
-            }
-
-            return (
-              <div
-                key={key}
-                style={style}
-                className='piece'
-                onClick={() => pieceOnClick(piece)}
-              />
-            )
+          const pieceCoordinates = coordinates[piece.coordinates.file + piece.coordinates.rank]
+          const style = {
+            width: defaults.square.size,
+            height: defaults.square.size,
+            top: `${pieceCoordinates.y}px`,
+            left: `${pieceCoordinates.x}px`,
+            backgroundColor: piece.selected ? defaults.square.colors.selected : '',
+            backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
           }
+
+          return (
+            <div
+              key={key}
+              style={style}
+              className='piece'
+              onClick={() => pieceOnClick(piece)}
+            />
+          )
         })}
       </React.Fragment>
     )
