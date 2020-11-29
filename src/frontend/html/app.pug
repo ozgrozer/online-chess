@@ -1,0 +1,12 @@
+doctype html
+html(lang='en')
+  head
+    title=defaults.siteName
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap')
+    link(rel='stylesheet' href='./App.css?v=1')
+  body
+    #root
+    script!='window.defaults = ' + JSON.stringify(defaults) + ';'
+    script(src='./App.js?v=1')
