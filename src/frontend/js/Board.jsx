@@ -9,7 +9,7 @@ const Board = () => {
     const defaults = {
       cols: 8,
       rows: 8,
-      squareSize: 50,
+      squareSize: 60,
       squareColors: {
         first: '#f0d9b5',
         second: '#b58863'
