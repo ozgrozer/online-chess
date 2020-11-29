@@ -11,14 +11,10 @@ app.use(express.static(path.join(__dirname, '..', '..', 'dist')))
 
 const getTimeForConsole = () => new Date(Date.now()).toLocaleString() + ':'
 
-app.listen(port, () => {
+app.listen(process.env.PORT, () => {
   console.log(getTimeForConsole(), `${defaults.site.name}: http://localhost:${defaults.site.port}`)
 })
 
 app.get('*', (req, res) => {
-  res.render('App', {
-    defaults: {
-      siteName: defaults.site.name
-    }
-  })
+  res.send('asd')
 })
