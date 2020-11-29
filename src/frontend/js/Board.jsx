@@ -1,17 +1,17 @@
 import React, { useRef, useEffect } from 'react'
 
-import bbPng from './../img/pieces/bb.png'
-import bkPng from './../img/pieces/bk.png'
-import bnPng from './../img/pieces/bn.png'
-import bpPng from './../img/pieces/bp.png'
-import bqPng from './../img/pieces/bq.png'
-import brPng from './../img/pieces/br.png'
-import wbPng from './../img/pieces/wb.png'
-import wkPng from './../img/pieces/wk.png'
-import wnPng from './../img/pieces/wn.png'
-import wpPng from './../img/pieces/wp.png'
-import wqPng from './../img/pieces/wq.png'
-import wrPng from './../img/pieces/wr.png'
+import blackBishop from './../img/pieces/blackBishop.png'
+import blackKing from './../img/pieces/blackKing.png'
+import blackKnight from './../img/pieces/blackKnight.png'
+import blackPawn from './../img/pieces/blackPawn.png'
+import blackQueen from './../img/pieces/blackQueen.png'
+import blackRook from './../img/pieces/blackRook.png'
+import whiteBishop from './../img/pieces/whiteBishop.png'
+import whiteKing from './../img/pieces/whiteKing.png'
+import whiteKnight from './../img/pieces/whiteKnight.png'
+import whitePawn from './../img/pieces/whitePawn.png'
+import whiteQueen from './../img/pieces/whiteQueen.png'
+import whiteRook from './../img/pieces/whiteRook.png'
 
 const Board = () => {
   const defaults = {
@@ -27,6 +27,43 @@ const Board = () => {
       }
     }
   }
+
+  const size = defaults.square.size
+  const pieces = [
+    { color: 'black', name: 'rook', position: { x: (size * 0), y: (size * 0) } },
+    { color: 'black', name: 'knight', position: { x: (size * 1), y: (size * 0) } },
+    { color: 'black', name: 'bishop', position: { x: (size * 2), y: (size * 0) } },
+    { color: 'black', name: 'queen', position: { x: (size * 3), y: (size * 0) } },
+    { color: 'black', name: 'king', position: { x: (size * 4), y: (size * 0) } },
+    { color: 'black', name: 'bishop', position: { x: (size * 5), y: (size * 0) } },
+    { color: 'black', name: 'knight', position: { x: (size * 6), y: (size * 0) } },
+    { color: 'black', name: 'rook', position: { x: (size * 7), y: (size * 0) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 0), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 1), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 2), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 3), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 4), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 5), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 6), y: (size * 1) } },
+    { color: 'black', name: 'pawn', position: { x: (size * 7), y: (size * 1) } },
+
+    { color: 'white', name: 'rook', position: { x: (size * 0), y: (size * 7) } },
+    { color: 'white', name: 'knight', position: { x: (size * 1), y: (size * 7) } },
+    { color: 'white', name: 'bishop', position: { x: (size * 2), y: (size * 7) } },
+    { color: 'white', name: 'queen', position: { x: (size * 3), y: (size * 7) } },
+    { color: 'white', name: 'king', position: { x: (size * 4), y: (size * 7) } },
+    { color: 'white', name: 'bishop', position: { x: (size * 5), y: (size * 7) } },
+    { color: 'white', name: 'knight', position: { x: (size * 6), y: (size * 7) } },
+    { color: 'white', name: 'rook', position: { x: (size * 7), y: (size * 7) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 0), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 1), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 2), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 3), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 4), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 5), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 6), y: (size * 6) } },
+    { color: 'white', name: 'pawn', position: { x: (size * 7), y: (size * 6) } }
+  ]
 
   const drawImage = (url, callback) => {
     const image = new window.Image()
@@ -72,39 +109,26 @@ const Board = () => {
     const { ctx } = props
     const size = defaults.square.size
 
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 0), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 1), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 2), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 3), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 4), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 5), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 6), (size * 1), size, size))
-    drawImage(bpPng, img => ctx.drawImage(img, (size * 7), (size * 1), size, size))
-    drawImage(brPng, img => ctx.drawImage(img, (size * 0), (size * 0), size, size))
-    drawImage(bnPng, img => ctx.drawImage(img, (size * 1), (size * 0), size, size))
-    drawImage(bbPng, img => ctx.drawImage(img, (size * 2), (size * 0), size, size))
-    drawImage(bqPng, img => ctx.drawImage(img, (size * 3), (size * 0), size, size))
-    drawImage(bkPng, img => ctx.drawImage(img, (size * 4), (size * 0), size, size))
-    drawImage(bbPng, img => ctx.drawImage(img, (size * 5), (size * 0), size, size))
-    drawImage(bnPng, img => ctx.drawImage(img, (size * 6), (size * 0), size, size))
-    drawImage(brPng, img => ctx.drawImage(img, (size * 7), (size * 0), size, size))
+    const pieceImages = {
+      'black-bishop': blackBishop,
+      'black-king': blackKing,
+      'black-knight': blackKnight,
+      'black-pawn': blackPawn,
+      'black-queen': blackQueen,
+      'black-rook': blackRook,
+      'white-bishop': whiteBishop,
+      'white-king': whiteKing,
+      'white-knight': whiteKnight,
+      'white-pawn': whitePawn,
+      'white-queen': whiteQueen,
+      'white-rook': whiteRook
+    }
 
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 0), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 1), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 2), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 3), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 4), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 5), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 6), (size * 6), size, size))
-    drawImage(wpPng, img => ctx.drawImage(img, (size * 7), (size * 6), size, size))
-    drawImage(wrPng, img => ctx.drawImage(img, (size * 0), (size * 7), size, size))
-    drawImage(wnPng, img => ctx.drawImage(img, (size * 1), (size * 7), size, size))
-    drawImage(wbPng, img => ctx.drawImage(img, (size * 2), (size * 7), size, size))
-    drawImage(wqPng, img => ctx.drawImage(img, (size * 3), (size * 7), size, size))
-    drawImage(wkPng, img => ctx.drawImage(img, (size * 4), (size * 7), size, size))
-    drawImage(wbPng, img => ctx.drawImage(img, (size * 5), (size * 7), size, size))
-    drawImage(wnPng, img => ctx.drawImage(img, (size * 6), (size * 7), size, size))
-    drawImage(wrPng, img => ctx.drawImage(img, (size * 7), (size * 7), size, size))
+    for (const key in pieces) {
+      const piece = pieces[key]
+      const pieceImage = pieceImages[`${piece.color}-${piece.name}`]
+      drawImage(pieceImage, img => ctx.drawImage(img, piece.position.x, piece.position.y, size, size))
+    }
   }
 
   const draw = props => {
