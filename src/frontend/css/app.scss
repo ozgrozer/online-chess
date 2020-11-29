@@ -21,8 +21,13 @@ body, input, textarea, button, select {
     margin-top: 20px;
   }
 
+  .selectedPiece {
+    margin-top: 20px;
+  }
+
   #board {
     margin-top: 30px;
+    user-select: none;
   }
 }
 
