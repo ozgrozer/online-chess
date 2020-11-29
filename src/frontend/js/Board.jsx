@@ -15,7 +15,6 @@ import whitePawn from './../img/pieces/whitePawn.png'
 import whiteQueen from './../img/pieces/whiteQueen.png'
 import whiteRook from './../img/pieces/whiteRook.png'
 
-import coordinates from './coordinates'
 import defaultPieces from './defaultPieces'
 
 const defaults = {
@@ -48,7 +47,17 @@ const pieceImages = {
   'white-rook': whiteRook
 }
 
-const coordinates_ = coordinates(defaults.square.size)
+const coordinates = {}
+const files = 'abcdefghijklmnopqrstuvwxyz'
+for (let rank = 0; rank < defaults.board.cols; rank++) {
+  for (let file = 0; file < defaults.board.rows; file++) {
+    const rankForObject = rank + 1
+    coordinates[files[file] + rankForObject] = {
+      x: (defaults.square.size * file),
+      y: (defaults.square.size * (defaults.board.cols - rankForObject))
+    }
+  }
+}
 
 const Board = () => {
   const [pieces, setPieces] = useState(defaultPieces)
@@ -121,7 +130,7 @@ const Board = () => {
           const pieceCoordinates_ = Object.prototype.hasOwnProperty.call(piece, 'coordinates')
             ? piece.coordinates
             : {}
-          const pieceCoordinates = coordinates_[pieceCoordinates_.file + pieceCoordinates_.rank]
+          const pieceCoordinates = coordinates[pieceCoordinates_.file + pieceCoordinates_.rank]
           if (pieceCoordinates) {
             const style = {
               width: defaults.square.size,
