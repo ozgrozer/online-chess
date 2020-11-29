@@ -1,8 +1,6 @@
 import React, { useRef, useEffect } from 'react'
 
 const Board = () => {
-  console.log('Glitch git push test 2')
-
   const defaults = {
     board: {
       cols: 8,
