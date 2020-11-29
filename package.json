@@ -1,27 +1,21 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "hello-express",
-  "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
-  "main": "server.js",
+  "name": "online-chess",
+  "license": "MIT",
   "scripts": {
-    "start": "node server.js"
+    "dev": "concurrently \"npm:server\" \"npm:start\" -c \"green,blue\"",
+    "server": "nodemon --ignore .cache/ --ignore dist/ --ignore node_modules/ ./src/backend/server.js",
+    "start": "parcel ./src/frontend/js/App.jsx --out-dir ./dist --public-url / --port 1231",
+    "build": "parcel build ./src/frontend/js/App.jsx --out-dir ./dist --public-url / --no-source-maps"
   },
   "dependencies": {
-    "express": "^4.17.1"
-  },
-  "engines": {
-    "node": "12.x"
-  },
-  "repository": {
-    "url": "https://glitch.com/edit/#!/hello-express"
-  },
-  "license": "MIT",
-  "keywords": [
-    "node",
-    "glitch",
-    "express"
-  ]
+    "babel-core": "^6.26.3",
+    "babel-preset-react": "^6.24.1",
+    "concurrently": "^5.3.0",
+    "express": "^4.17.1",
+    "parcel-bundler": "1.11.0",
+    "pug": "^3.0.0",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "sass": "^1.29.0"
+  }
 }

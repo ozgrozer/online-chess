@@ -1,0 +1,40 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #fff;
+}
+
+body, input, textarea, button, select {
+  color: #111;
+  font-size: 14px;
+  font-family: 'Open Sans';
+}
+
+#app {
+  padding: 50px;
+  text-align: center;
+
+  p {
+    margin-top: 20px;
+  }
+
+  #board {
+    margin-top: 30px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 48px;
+  line-height: 48px;
+}
+h2 {
+  font-size: 32px;
+  line-height: 32px;
+}
