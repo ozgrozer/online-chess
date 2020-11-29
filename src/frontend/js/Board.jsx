@@ -1,5 +1,18 @@
 import React, { useRef, useEffect } from 'react'
 
+import bbPng from './../img/pieces/bb.png'
+import bkPng from './../img/pieces/bk.png'
+import bnPng from './../img/pieces/bn.png'
+import bpPng from './../img/pieces/bp.png'
+import bqPng from './../img/pieces/bq.png'
+import brPng from './../img/pieces/br.png'
+import wbPng from './../img/pieces/wb.png'
+import wkPng from './../img/pieces/wk.png'
+import wnPng from './../img/pieces/wn.png'
+import wpPng from './../img/pieces/wp.png'
+import wqPng from './../img/pieces/wq.png'
+import wrPng from './../img/pieces/wr.png'
+
 const Board = () => {
   const defaults = {
     board: {
@@ -13,6 +26,12 @@ const Board = () => {
         second: '#b58863'
       }
     }
+  }
+
+  const drawImage = (url, callback) => {
+    const image = new window.Image()
+    image.src = url
+    image.onload = () => callback(image)
   }
 
   const makeBackgronud = props => {
@@ -49,9 +68,48 @@ const Board = () => {
     }
   }
 
+  const placePieces = props => {
+    const { ctx } = props
+
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 0), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 1), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 2), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 3), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 4), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 5), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 6), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(bpPng, image => ctx.drawImage(image, (defaults.square.size * 7), (defaults.square.size * 1), defaults.square.size, defaults.square.size))
+    drawImage(brPng, image => ctx.drawImage(image, (defaults.square.size * 0), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bnPng, image => ctx.drawImage(image, (defaults.square.size * 1), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bbPng, image => ctx.drawImage(image, (defaults.square.size * 2), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bqPng, image => ctx.drawImage(image, (defaults.square.size * 3), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bkPng, image => ctx.drawImage(image, (defaults.square.size * 4), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bbPng, image => ctx.drawImage(image, (defaults.square.size * 5), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(bnPng, image => ctx.drawImage(image, (defaults.square.size * 6), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+    drawImage(brPng, image => ctx.drawImage(image, (defaults.square.size * 7), (defaults.square.size * 0), defaults.square.size, defaults.square.size))
+
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 0), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 1), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 2), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 3), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 4), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 5), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 6), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wpPng, image => ctx.drawImage(image, (defaults.square.size * 7), (defaults.square.size * 6), defaults.square.size, defaults.square.size))
+    drawImage(wrPng, image => ctx.drawImage(image, (defaults.square.size * 0), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wnPng, image => ctx.drawImage(image, (defaults.square.size * 1), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wbPng, image => ctx.drawImage(image, (defaults.square.size * 2), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wqPng, image => ctx.drawImage(image, (defaults.square.size * 3), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wkPng, image => ctx.drawImage(image, (defaults.square.size * 4), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wbPng, image => ctx.drawImage(image, (defaults.square.size * 5), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wnPng, image => ctx.drawImage(image, (defaults.square.size * 6), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+    drawImage(wrPng, image => ctx.drawImage(image, (defaults.square.size * 7), (defaults.square.size * 7), defaults.square.size, defaults.square.size))
+  }
+
   const draw = props => {
     makeBackgronud(props)
     makeSquares(props)
+    placePieces(props)
   }
 
   const boardRef = useRef(null)
