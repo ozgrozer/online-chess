@@ -3,26 +3,28 @@ import React, { useRef, useEffect } from 'react'
 const Board = () => {
   const boardRef = useRef(null)
 
-  const draw = props => {
+  const defaults = {
+    cols: 8,
+    rows: 8,
+    squareSize: 60,
+    squareColors: {
+      first: '#f0d9b5',
+      second: '#b58863'
+    }
+  }
+
+  const makeBackgronud = props => {
     const { canvas, ctx } = props
 
-    const defaults = {
-      cols: 8,
-      rows: 8,
-      squareSize: 60,
-      squareColors: {
-        first: '#f0d9b5',
-        second: '#b58863'
-      }
-    }
-
-    // canvas background
     canvas.width = defaults.squareSize * defaults.cols
     canvas.height = defaults.squareSize * defaults.rows
     ctx.fillStyle = '#ddd'
     ctx.fillRect(0, 0, canvas.width, canvas.height)
+  }
 
-    // squares
+  const makeSquares = props => {
+    const { ctx } = props
+
     for (let y = 0; y < defaults.rows; y++) {
       for (let x = 0; x < defaults.cols; x++) {
         // x0y0, x2y0, x0y2, x2y2
@@ -44,6 +46,11 @@ const Board = () => {
         ctx.fillRect(xPosition, yPosition, defaults.squareSize, defaults.squareSize)
       }
     }
+  }
+
+  const draw = props => {
+    makeBackgronud(props)
+    makeSquares(props)
   }
 
   useEffect(() => {
