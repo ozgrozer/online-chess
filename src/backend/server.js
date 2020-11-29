@@ -18,7 +18,7 @@ app.listen(port, () => {
 app.get('*', (req, res) => {
   res.render('app', {
     defaults: {
-      siteName: defaults.site.title
+      siteTitle: defaults.site.title
     }
   })
 })
