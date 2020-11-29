@@ -2,10 +2,15 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import './../css/app.scss'
+import Board from './Board'
 
 const App = () => {
   return (
-    <h1>Online Chess</h1>
+    <div id='app'>
+      <h2>Online Chess</h2>
+      <p>Play chess against an online player</p>
+      <Board />
+    </div>
   )
 }
 
