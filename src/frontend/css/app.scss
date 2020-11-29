@@ -21,13 +21,26 @@ body, input, textarea, button, select {
     margin-top: 20px;
   }
 
-  .selectedPiece {
+  #selectedPiece {
     margin-top: 20px;
   }
 
   #board {
-    margin-top: 30px;
+    margin: 30px auto;
     user-select: none;
+    position: relative;
+
+    .square {
+      position: absolute;
+    }
+
+    .piece {
+      cursor: pointer;
+      position: absolute;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
   }
 }
 
