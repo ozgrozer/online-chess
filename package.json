@@ -2,9 +2,10 @@
   "name": "online-chess",
   "license": "MIT",
   "scripts": {
-    "dev": "concurrently \"npm:server\" \"npm:start\" -c \"green,blue\"",
+    "start": "node ./src/backend/server.js",
+    "dev": "concurrently \"npm:server\" \"npm:dev:start\" -c \"green,blue\"",
     "server": "nodemon --ignore .cache/ --ignore dist/ --ignore node_modules/ ./src/backend/server.js",
-    "start": "parcel ./src/frontend/js/App.jsx --out-dir ./dist --public-url / --port 1231",
+    "dev:start": "parcel ./src/frontend/js/App.jsx --out-dir ./dist --public-url / --port 1231",
     "build": "parcel build ./src/frontend/js/App.jsx --out-dir ./dist --public-url / --no-source-maps"
   },
   "dependencies": {
