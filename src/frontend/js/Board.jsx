@@ -15,6 +15,9 @@ import whitePawn from './../img/pieces/whitePawn.png'
 import whiteQueen from './../img/pieces/whiteQueen.png'
 import whiteRook from './../img/pieces/whiteRook.png'
 
+import coordinates from './coordinates'
+import defaultPieces from './defaultPieces'
+
 const defaults = {
   board: {
     cols: 8,
@@ -30,44 +33,6 @@ const defaults = {
   }
 }
 
-const squareSize = defaults.square.size
-
-const defaultPieces = [
-  { color: 'black', name: 'rook', position: { x: (squareSize * 0), y: (squareSize * 0) } },
-  { color: 'black', name: 'knight', position: { x: (squareSize * 1), y: (squareSize * 0) } },
-  { color: 'black', name: 'bishop', position: { x: (squareSize * 2), y: (squareSize * 0) } },
-  { color: 'black', name: 'queen', position: { x: (squareSize * 3), y: (squareSize * 0) } },
-  { color: 'black', name: 'king', position: { x: (squareSize * 4), y: (squareSize * 0) } },
-  { color: 'black', name: 'bishop', position: { x: (squareSize * 5), y: (squareSize * 0) } },
-  { color: 'black', name: 'knight', position: { x: (squareSize * 6), y: (squareSize * 0) } },
-  { color: 'black', name: 'rook', position: { x: (squareSize * 7), y: (squareSize * 0) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 0), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 1), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 2), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 3), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 4), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 5), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 6), y: (squareSize * 1) } },
-  { color: 'black', name: 'pawn', position: { x: (squareSize * 7), y: (squareSize * 1) } },
-
-  { color: 'white', name: 'rook', position: { x: (squareSize * 0), y: (squareSize * 7) } },
-  { color: 'white', name: 'knight', position: { x: (squareSize * 1), y: (squareSize * 7) } },
-  { color: 'white', name: 'bishop', position: { x: (squareSize * 2), y: (squareSize * 7) } },
-  { color: 'white', name: 'queen', position: { x: (squareSize * 3), y: (squareSize * 7) } },
-  { color: 'white', name: 'king', position: { x: (squareSize * 4), y: (squareSize * 7) } },
-  { color: 'white', name: 'bishop', position: { x: (squareSize * 5), y: (squareSize * 7) } },
-  { color: 'white', name: 'knight', position: { x: (squareSize * 6), y: (squareSize * 7) } },
-  { color: 'white', name: 'rook', position: { x: (squareSize * 7), y: (squareSize * 7) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 0), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 1), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 2), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 3), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 4), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 5), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 6), y: (squareSize * 6) } },
-  { color: 'white', name: 'pawn', position: { x: (squareSize * 7), y: (squareSize * 6) } }
-]
-
 const pieceImages = {
   'black-bishop': blackBishop,
   'black-king': blackKing,
@@ -82,6 +47,8 @@ const pieceImages = {
   'white-queen': whiteQueen,
   'white-rook': whiteRook
 }
+
+const coordinates_ = coordinates(defaults.square.size)
 
 const Board = () => {
   const [pieces, setPieces] = useState(defaultPieces)
@@ -111,8 +78,8 @@ const Board = () => {
 
         squares.push({
           color,
-          x: squareSize * x,
-          y: squareSize * y
+          x: defaults.square.size * x,
+          y: defaults.square.size * y
         })
       }
     }
@@ -121,10 +88,10 @@ const Board = () => {
       <React.Fragment>
         {squares.map((square, key) => {
           const style = {
-            width: squareSize,
-            height: squareSize,
             top: `${square.y}px`,
             left: `${square.x}px`,
+            width: defaults.square.size,
+            height: defaults.square.size,
             backgroundColor: square.color
           }
 
@@ -151,23 +118,29 @@ const Board = () => {
     return (
       <React.Fragment>
         {pieces.map((piece, key) => {
-          const style = {
-            width: squareSize,
-            height: squareSize,
-            top: `${piece.position.y}px`,
-            left: `${piece.position.x}px`,
-            backgroundColor: piece.selected ? defaults.square.colors.selected : '',
-            backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
-          }
+          const pieceCoordinates_ = Object.prototype.hasOwnProperty.call(piece, 'coordinates')
+            ? piece.coordinates
+            : {}
+          const pieceCoordinates = coordinates_[pieceCoordinates_.file + pieceCoordinates_.rank]
+          if (pieceCoordinates) {
+            const style = {
+              width: defaults.square.size,
+              height: defaults.square.size,
+              top: `${pieceCoordinates.y}px`,
+              left: `${pieceCoordinates.x}px`,
+              backgroundColor: piece.selected ? defaults.square.colors.selected : '',
+              backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
+            }
 
-          return (
-            <div
-              key={key}
-              style={style}
-              className='piece'
-              onClick={() => pieceOnClick(piece)}
-            />
-          )
+            return (
+              <div
+                key={key}
+                style={style}
+                className='piece'
+                onClick={() => pieceOnClick(piece)}
+              />
+            )
+          }
         })}
       </React.Fragment>
     )
