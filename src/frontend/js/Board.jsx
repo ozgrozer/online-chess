@@ -59,56 +59,54 @@ for (let rank = 0; rank < defaults.board.cols; rank++) {
   }
 }
 
-const Board = () => {
-  const [pieces, setPieces] = useState(defaultPieces)
+const MakeSquares = () => {
+  const squares = []
 
-  const [selectedPiece, setSelectedPiece] = useState('waiting...')
+  for (let y = 0; y < defaults.board.rows; y++) {
+    for (let x = 0; x < defaults.board.cols; x++) {
+      let color = ''
 
-  const MakeSquares = () => {
-    const squares = []
+      // x0y0, x2y0, x0y2, x2y2
+      if (x % 2 === 0 && y % 2 === 0) {
+        color = defaults.square.colors.first
+      // x1y0, x3y0, x1y2, x3y2
+      } else if (x % 2 === 1 && y % 2 === 0) {
+        color = defaults.square.colors.second
+      // x0y1, x2y1, x0y3, x2y3
+      } else if (x % 2 === 0 && y % 2 === 1) {
+        color = defaults.square.colors.second
+      // x1y1, x3y1, x1y3, x3y3
+      } else if (x % 2 === 1 && y % 2 === 1) {
+        color = defaults.square.colors.first
+      }
 
-    for (let y = 0; y < defaults.board.rows; y++) {
-      for (let x = 0; x < defaults.board.cols; x++) {
-        let color = ''
+      squares.push({
+        color,
+        x: defaults.square.size * x,
+        y: defaults.square.size * y
+      })
+    }
+  }
 
-        // x0y0, x2y0, x0y2, x2y2
-        if (x % 2 === 0 && y % 2 === 0) {
-          color = defaults.square.colors.first
-        // x1y0, x3y0, x1y2, x3y2
-        } else if (x % 2 === 1 && y % 2 === 0) {
-          color = defaults.square.colors.second
-        // x0y1, x2y1, x0y3, x2y3
-        } else if (x % 2 === 0 && y % 2 === 1) {
-          color = defaults.square.colors.second
-        // x1y1, x3y1, x1y3, x3y3
-        } else if (x % 2 === 1 && y % 2 === 1) {
-          color = defaults.square.colors.first
+  return (
+    <div className='squares'>
+      {squares.map((square, key) => {
+        const style = {
+          top: `${square.y}px`,
+          left: `${square.x}px`,
+          width: defaults.square.size,
+          height: defaults.square.size,
+          backgroundColor: square.color
         }
 
-        squares.push({
-          color,
-          x: defaults.square.size * x,
-          y: defaults.square.size * y
-        })
-      }
-    }
+        return <div key={key} style={style} className='square' />
+      })}
+    </div>
+  )
+}
 
-    return (
-      <React.Fragment>
-        {squares.map((square, key) => {
-          const style = {
-            top: `${square.y}px`,
-            left: `${square.x}px`,
-            width: defaults.square.size,
-            height: defaults.square.size,
-            backgroundColor: square.color
-          }
-
-          return <div key={key} style={style} className='square' />
-        })}
-      </React.Fragment>
-    )
-  }
+const PlacePieces = props => {
+  const { pieces, setPieces, setSelectedPiece } = props
 
   const pieceOnClick = piece => {
     for (const key in pieces) {
@@ -123,32 +121,34 @@ const Board = () => {
     setSelectedPiece(`${piece.color} ${piece.name} ${piece.coordinates.file}${piece.coordinates.rank}`)
   }
 
-  const PlacePieces = () => {
-    return (
-      <React.Fragment>
-        {pieces.map((piece, key) => {
-          const pieceCoordinates = coordinates[piece.coordinates.file + piece.coordinates.rank]
-          const style = {
-            width: defaults.square.size,
-            height: defaults.square.size,
-            top: `${pieceCoordinates.y}px`,
-            left: `${pieceCoordinates.x}px`,
-            backgroundColor: piece.selected ? defaults.square.colors.selected : '',
-            backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
-          }
+  return (
+    <div className='pieces'>
+      {pieces.map((piece, key) => {
+        const pieceCoordinates = coordinates[piece.coordinates.file + piece.coordinates.rank]
+        const style = {
+          width: defaults.square.size,
+          height: defaults.square.size,
+          top: `${pieceCoordinates.y}px`,
+          left: `${pieceCoordinates.x}px`,
+          backgroundColor: piece.selected ? defaults.square.colors.selected : '',
+          backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
+        }
 
-          return (
-            <div
-              key={key}
-              style={style}
-              className='piece'
-              onClick={() => pieceOnClick(piece)}
-            />
-          )
-        })}
-      </React.Fragment>
-    )
-  }
+        return (
+          <div
+            key={key}
+            style={style}
+            className='piece'
+            onClick={() => pieceOnClick(piece)}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
+const QueensGambitMove = props => {
+  const { pieces, setPieces } = props
 
   const findCurrentIndex = props => {
     const { currentFile, currentRank } = props
@@ -161,6 +161,7 @@ const Board = () => {
     }
     return currentIndex
   }
+
   const findNewIndex = props => {
     const { newFile, newRank } = props
     let newIndex
@@ -177,6 +178,7 @@ const Board = () => {
       newCoordinateIsFilled
     }
   }
+
   const movePiece = props => {
     const { currentCoordinate, newCoordinate } = props
 
@@ -214,6 +216,17 @@ const Board = () => {
     moveWithSetTimeout({ second: 6, currentCoordinate: 'f1', newCoordinate: 'c4' })
   }
 
+  return (
+    <button onClick={queensGambitMove} style={{ marginTop: '20px' }}>
+      queen's gambit move
+    </button>
+  )
+}
+
+const Board = () => {
+  const [pieces, setPieces] = useState(defaultPieces)
+  const [selectedPiece, setSelectedPiece] = useState('waiting...')
+
   const boardStyle = {
     width: defaults.square.size * defaults.board.cols,
     height: defaults.square.size * defaults.board.rows
@@ -225,11 +238,21 @@ const Board = () => {
         Selected piece: <b>{selectedPiece}</b>
       </div>
 
-      <button onClick={queensGambitMove} style={{ marginTop: '20px' }}>queen's gambit move</button>
+      <QueensGambitMove
+        pieces={pieces}
+        setPieces={setPieces}
+      />
 
-      <div id='board' style={boardStyle}>
+      <div
+        id='board'
+        style={boardStyle}
+      >
         <MakeSquares />
-        <PlacePieces />
+        <PlacePieces
+          pieces={pieces}
+          setPieces={setPieces}
+          setSelectedPiece={setSelectedPiece}
+        />
       </div>
     </React.Fragment>
   )
