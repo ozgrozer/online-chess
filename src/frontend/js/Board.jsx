@@ -15,8 +15,6 @@ import whitePawn from './../img/pieces/whitePawn.png'
 import whiteQueen from './../img/pieces/whiteQueen.png'
 import whiteRook from './../img/pieces/whiteRook.png'
 
-import defaultPieces from './defaultPieces'
-
 const defaults = {
   board: {
     cols: 8,
@@ -30,6 +28,26 @@ const defaults = {
       selected: '#d9c349'
     }
   }
+}
+
+const defaultPosition = [
+  ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
+  ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
+  ['.', '.', '.', '.', '.', '.', '.', '.'],
+  ['.', '.', '.', '.', '.', '.', '.', '.'],
+  ['.', '.', '.', '.', '.', '.', '.', '.'],
+  ['.', '.', '.', '.', '.', '.', '.', '.'],
+  ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
+  ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
+]
+
+const pieceNames = {
+  r: 'rook',
+  n: 'knight',
+  b: 'bishop',
+  q: 'queen',
+  k: 'king',
+  p: 'pawn'
 }
 
 const pieceImages = {
@@ -47,12 +65,12 @@ const pieceImages = {
   'white-rook': whiteRook
 }
 
-const coordinates = {}
+const positions = {}
 const files = 'abcdefghijklmnopqrstuvwxyz'
 for (let rank = 0; rank < defaults.board.cols; rank++) {
   for (let file = 0; file < defaults.board.rows; file++) {
     const rankForObject = rank + 1
-    coordinates[files[file] + rankForObject] = {
+    positions[files[file] + rankForObject] = {
       x: (defaults.square.size * file),
       y: (defaults.square.size * (defaults.board.cols - rankForObject))
     }
@@ -105,42 +123,78 @@ const MakeSquares = () => {
   )
 }
 
+const calculatePossibleMoves = props => {
+  const { piece } = props
+  const { name, color, coordinates } = piece
+  const { file, rank } = coordinates
+
+  const possibleMoves = []
+
+  if (name === 'pawn') {
+    const nextRank = color === 'white' ? rank + 1 : rank - 1
+    possibleMoves.push({ rank: nextRank, file })
+
+    const startingRank = color === 'white' ? 2 : 7
+    if (rank === startingRank) {
+      const nextRank = color === 'white' ? rank + 2 : rank - 2
+      possibleMoves.push({ rank: nextRank, file })
+    }
+  }
+
+  return possibleMoves
+}
+
 const PlacePieces = props => {
-  const { pieces, setPieces, setSelectedPiece } = props
+  const { pieces, selectedPiece, setSelectedPiece, setPossibleMoves } = props
 
   const pieceOnClick = piece => {
-    for (const key in pieces) {
-      const piece = pieces[key]
-      if (piece.selected) piece.selected = false
-    }
-
-    const selected = Object.prototype.hasOwnProperty.call(piece, 'selected') ? piece.selected : false
-    piece.selected = !selected
-    setPieces([...pieces])
-
-    setSelectedPiece(`${piece.color} ${piece.name} ${piece.coordinates.file}${piece.coordinates.rank}`)
+    setSelectedPiece(piece)
+    const possibleMoves = calculatePossibleMoves({ piece })
+    setPossibleMoves(possibleMoves)
   }
 
   return (
     <div className='pieces'>
-      {pieces.map((piece, key) => {
-        const pieceCoordinates = coordinates[piece.coordinates.file + piece.coordinates.rank]
-        const style = {
-          width: defaults.square.size,
-          height: defaults.square.size,
-          top: `${pieceCoordinates.y}px`,
-          left: `${pieceCoordinates.x}px`,
-          backgroundColor: piece.selected ? defaults.square.colors.selected : '',
-          backgroundImage: `url(${pieceImages[`${piece.color}-${piece.name}`]})`
-        }
-
+      {pieces.map((pieceRow, key1) => {
         return (
-          <div
-            key={key}
-            style={style}
-            className='piece'
-            onClick={() => pieceOnClick(piece)}
-          />
+          <div key={key1} className='pieceRow'>
+            {pieceRow.map((pieceLetter, key2) => {
+              const file = files[key2]
+              const rank = defaults.board.cols - key1
+              const piecePositions = positions[file + rank]
+              const color = pieceLetter === pieceLetter.toLowerCase() ? 'black' : 'white'
+              const name = pieceNames[pieceLetter.toLowerCase()]
+              const selected = selectedPiece.key1 === key1 && selectedPiece.key2 === key2 && name
+
+              if (name) {
+                const piece = {
+                  key1,
+                  key2,
+                  name,
+                  color,
+                  coordinates: { file, rank }
+                }
+
+                const style = {
+                  width: defaults.square.size,
+                  height: defaults.square.size,
+                  top: `${piecePositions.y}px`,
+                  left: `${piecePositions.x}px`,
+                  backgroundImage: `url(${pieceImages[`${color}-${name}`]})`,
+                  backgroundColor: selected ? defaults.square.colors.selected : ''
+                }
+
+                return (
+                  <div
+                    key={key2}
+                    style={style}
+                    className='piece'
+                    onClick={() => pieceOnClick(piece)}
+                  />
+                )
+              }
+            })}
+          </div>
         )
       })}
     </div>
@@ -223,9 +277,36 @@ const QueensGambitMove = props => {
   )
 }
 
+const ShowPossibleMoves = props => {
+  const { possibleMoves } = props
+
+  return (
+    <div className='possibleMoves'>
+      {possibleMoves.map((possibleMove, key) => {
+        const possibleCoordinates = positions[possibleMove.file + possibleMove.rank]
+        const possibleMoveStyle = {
+          width: defaults.square.size,
+          height: defaults.square.size,
+          top: `${possibleCoordinates.y}px`,
+          left: `${possibleCoordinates.x}px`
+        }
+
+        return (
+          <div
+            key={key}
+            className='possibleMove'
+            style={possibleMoveStyle}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
 const Board = () => {
-  const [pieces, setPieces] = useState(defaultPieces)
-  const [selectedPiece, setSelectedPiece] = useState('waiting...')
+  const [pieces, setPieces] = useState(defaultPosition)
+  const [possibleMoves, setPossibleMoves] = useState([])
+  const [selectedPiece, setSelectedPiece] = useState({ color: '', name: '', coordinates: { file: '', rank: '' } })
 
   const boardStyle = {
     width: defaults.square.size * defaults.board.cols,
@@ -235,7 +316,7 @@ const Board = () => {
   return (
     <React.Fragment>
       <div id='selectedPiece'>
-        Selected piece: <b>{selectedPiece}</b>
+        Selected piece: <b>{selectedPiece.color} {selectedPiece.name} {selectedPiece.coordinates.file}{selectedPiece.coordinates.rank}</b>
       </div>
 
       <QueensGambitMove
@@ -251,8 +332,11 @@ const Board = () => {
         <PlacePieces
           pieces={pieces}
           setPieces={setPieces}
+          selectedPiece={selectedPiece}
+          setPossibleMoves={setPossibleMoves}
           setSelectedPiece={setSelectedPiece}
         />
+        <ShowPossibleMoves possibleMoves={possibleMoves} />
       </div>
     </React.Fragment>
   )
