@@ -23,7 +23,7 @@ const defaults = {
     rows: 8
   },
   square: {
-    size: 70,
+    size: 60,
     colors: {
       first: '#f0d9b5',
       second: '#b58863',
