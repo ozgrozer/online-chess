@@ -30,7 +30,7 @@ const defaults = {
   }
 }
 
-const defaultPosition = [
+const defaultCoordinate = [
   ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
   ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
   ['.', '.', '.', '.', '.', '.', '.', '.'],
@@ -201,82 +201,6 @@ const PlacePieces = props => {
   )
 }
 
-const QueensGambitMove = props => {
-  const { pieces, setPieces } = props
-
-  const findCurrentIndex = props => {
-    const { currentFile, currentRank } = props
-    let currentIndex
-    for (const key in pieces) {
-      const piece = pieces[key]
-      if (piece.coordinates.file === currentFile && piece.coordinates.rank === currentRank) {
-        currentIndex = key
-      }
-    }
-    return currentIndex
-  }
-
-  const findNewIndex = props => {
-    const { newFile, newRank } = props
-    let newIndex
-    let newCoordinateIsFilled
-    for (const key in pieces) {
-      const piece = pieces[key]
-      if (piece.coordinates.file === newFile && piece.coordinates.rank === newRank) {
-        newIndex = key
-        newCoordinateIsFilled = true
-      }
-    }
-    return {
-      newIndex,
-      newCoordinateIsFilled
-    }
-  }
-
-  const movePiece = props => {
-    const { currentCoordinate, newCoordinate } = props
-
-    const currentFile = currentCoordinate[0]
-    const currentRank = parseInt(currentCoordinate[1])
-    const newFile = newCoordinate[0]
-    const newRank = parseInt(newCoordinate[1])
-
-    let currentIndex = findCurrentIndex({ currentFile, currentRank })
-    const { newIndex, newCoordinateIsFilled } = findNewIndex({ newFile, newRank })
-
-    if (newCoordinateIsFilled) {
-      pieces.splice(newIndex, 1)
-      currentIndex = findCurrentIndex({ currentFile, currentRank })
-    }
-
-    pieces[currentIndex].coordinates = { file: newFile, rank: newRank }
-
-    setPieces([...pieces])
-  }
-
-  const moveWithSetTimeout = props => {
-    setTimeout(() => {
-      movePiece(props)
-    }, props.second * 1000)
-  }
-
-  const queensGambitMove = () => {
-    moveWithSetTimeout({ second: 0, currentCoordinate: 'd2', newCoordinate: 'd4' })
-    moveWithSetTimeout({ second: 1, currentCoordinate: 'd7', newCoordinate: 'd5' })
-    moveWithSetTimeout({ second: 2, currentCoordinate: 'c2', newCoordinate: 'c4' })
-    moveWithSetTimeout({ second: 3, currentCoordinate: 'd5', newCoordinate: 'c4' })
-    moveWithSetTimeout({ second: 4, currentCoordinate: 'e2', newCoordinate: 'e3' })
-    moveWithSetTimeout({ second: 5, currentCoordinate: 'g8', newCoordinate: 'f6' })
-    moveWithSetTimeout({ second: 6, currentCoordinate: 'f1', newCoordinate: 'c4' })
-  }
-
-  return (
-    <button onClick={queensGambitMove} style={{ marginTop: '20px' }}>
-      queen's gambit move
-    </button>
-  )
-}
-
 const ShowPossibleMoves = props => {
   const { possibleMoves } = props
 
@@ -304,7 +228,7 @@ const ShowPossibleMoves = props => {
 }
 
 const Board = () => {
-  const [pieces, setPieces] = useState(defaultPosition)
+  const [pieces, setPieces] = useState(defaultCoordinate)
   const [possibleMoves, setPossibleMoves] = useState([])
   const [selectedPiece, setSelectedPiece] = useState({ color: '', name: '', coordinates: { file: '', rank: '' } })
 
@@ -318,11 +242,6 @@ const Board = () => {
       <div id='selectedPiece'>
         Selected piece: <b>{selectedPiece.color} {selectedPiece.name} {selectedPiece.coordinates.file}{selectedPiece.coordinates.rank}</b>
       </div>
-
-      <QueensGambitMove
-        pieces={pieces}
-        setPieces={setPieces}
-      />
 
       <div
         id='board'
