@@ -57,6 +57,11 @@ body, input, textarea, button, select {
       }
     }
   }
+
+  #defaultCoordinate {
+    font-size: 18px;
+    font-family: Menlo, monospace;
+  }
 }
 
 h1, h2, h3, h4, h5, h6, p {
@@ -70,4 +75,13 @@ h1 {
 h2 {
   font-size: 32px;
   line-height: 32px;
+}
+
+textarea {
+  padding: 10px;
+  outline: none;
+  border: 1px solid #999;
+  &:focus {
+    border-color: #000;
+  }
 }

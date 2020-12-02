@@ -237,6 +237,14 @@ const Board = () => {
     height: defaults.square.size * defaults.board.rows
   }
 
+  const defaultCoordinateForTextarea = JSON.stringify(pieces)
+    .replace(/\[\[/g, '[\n  [')
+    .replace(/\]\]/g, ']\n]')
+    .replace(/,\[/g, ',\n  [')
+  const textareaOnChange = event => {
+    setPieces(JSON.parse(event.target.value))
+  }
+
   return (
     <React.Fragment>
       <div id='selectedPiece'>
@@ -257,6 +265,14 @@ const Board = () => {
         />
         <ShowPossibleMoves possibleMoves={possibleMoves} />
       </div>
+
+      <textarea
+        rows='10'
+        id='defaultCoordinate'
+        onChange={textareaOnChange}
+        value={defaultCoordinateForTextarea}
+        style={{ width: boardStyle.width }}
+      />
     </React.Fragment>
   )
 }
