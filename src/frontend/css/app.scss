@@ -9,58 +9,82 @@ body {
 
 body, input, textarea, button, select {
   color: #111;
-  font-size: 14px;
+  font-size: 18px;
   font-family: 'Open Sans';
 }
 
 #root {
   padding: 50px;
-  text-align: center;
+
+  h2 {
+    text-align: center;
+  }
 
   p {
     margin-top: 20px;
+    text-align: center;
   }
 
-  #selectedPiece {
-    margin-top: 20px;
-  }
-
-  #board {
-    margin: 30px auto;
-    user-select: none;
-    position: relative;
-
-    .square {
-      position: absolute;
+  .boardWrapper {
+    margin-top: 30px;
+    &:after {
+      content: '';
+      clear: both;
+      display: table;
     }
 
-    .piece {
-      cursor: pointer;
-      position: absolute;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-    }
+    .boardLeft {
+      width: 50%;
+      float: left;
+      padding-right: 30px;
 
-    .possibleMove {
-      z-index: 2;
-      position: absolute;
-      &:after {
-        top: 30%;
-        left: 30%;
-        width: 40%;
-        height: 40%;
-        content: '';
-        border-radius: 50%;
-        position: absolute;
-        background-color: rgba(0, 0, 0, 0.4);
+      .board {
+        float: right;
+        user-select: none;
+        position: relative;
+
+        .square {
+          position: absolute;
+        }
+
+        .piece {
+          cursor: pointer;
+          position: absolute;
+          background-size: cover;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        .possibleMove {
+          z-index: 2;
+          position: absolute;
+          &:after {
+            top: 30%;
+            left: 30%;
+            width: 40%;
+            height: 40%;
+            content: '';
+            border-radius: 50%;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.4);
+          }
+        }
       }
     }
-  }
 
-  #defaultCoordinate {
-    font-size: 18px;
-    font-family: Menlo, monospace;
+    .boardRight {
+      width: 50%;
+      float: left;
+      padding-left: 30px;
+
+      .selectedPiece {
+      }
+
+      .defaultCoordinates {
+        margin-top: 30px;
+        font-family: Menlo, monospace;
+      }
+    }
   }
 }
 
