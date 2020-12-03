@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react'
 
+import legalMoves from './legalMoves'
+
 import blackBishop from './../img/pieces/blackBishop.png'
 import blackKing from './../img/pieces/blackKing.png'
 import blackKnight from './../img/pieces/blackKnight.png'
@@ -34,7 +36,7 @@ const defaultCoordinates = [
   ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
   ['p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'],
   ['.', '.', '.', '.', '.', '.', '.', '.'],
-  ['.', '.', '.', '.', '.', '.', '.', '.'],
+  ['.', '.', '.', 'R', '.', '.', '.', '.'],
   ['.', '.', '.', '.', '.', '.', '.', '.'],
   ['.', '.', '.', '.', '.', '.', '.', '.'],
   ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
@@ -123,48 +125,13 @@ const MakeSquares = () => {
   )
 }
 
-const calculatePossibleMoves = props => {
-  const { piece } = props
-  const { name, color, coordinates } = piece
-  const { file, rank } = coordinates
-
-  const possibleMoves = []
-
-  if (name === 'pawn') {
-    const nextRank = color === 'white' ? rank + 1 : rank - 1
-    possibleMoves.push({ rank: nextRank, file })
-
-    const startingRank = color === 'white' ? 2 : 7
-    if (rank === startingRank) {
-      const nextRank = color === 'white' ? rank + 2 : rank - 2
-      possibleMoves.push({ rank: nextRank, file })
-    }
-  } else if (name === 'rook') {
-    for (let col = 0; col < defaults.board.cols; col++) {
-      const newFile = (rank - 1) !== col ? files[col] : ''
-      if (newFile) {
-        possibleMoves.push({ rank, file: newFile })
-      }
-    }
-
-    for (let row = 0; row < defaults.board.rows; row++) {
-      const newRank = (rank) !== row ? row : ''
-      if (newRank) {
-        possibleMoves.push({ rank: newRank, file })
-      }
-    }
-  }
-
-  return possibleMoves
-}
-
 const PlacePieces = props => {
-  const { pieces, selectedPiece, setSelectedPiece, setPossibleMoves } = props
+  const { pieces, selectedPiece, setSelectedPiece, setLegalMoves } = props
 
   const pieceOnClick = piece => {
     setSelectedPiece(piece)
-    const possibleMoves = calculatePossibleMoves({ piece })
-    setPossibleMoves(possibleMoves)
+    const legalMoves_ = legalMoves({ piece, defaults, files })
+    setLegalMoves(legalMoves_)
   }
 
   return (
@@ -215,14 +182,14 @@ const PlacePieces = props => {
   )
 }
 
-const ShowPossibleMoves = props => {
-  const { possibleMoves } = props
+const ShowLegalMoves = props => {
+  const { legalMoves } = props
 
   return (
-    <div className='possibleMoves'>
-      {possibleMoves.map((possibleMove, key) => {
-        const possibleCoordinates = positions[possibleMove.file + possibleMove.rank]
-        const possibleMoveStyle = {
+    <div className='legalMoves'>
+      {legalMoves.map((legalMove, key) => {
+        const possibleCoordinates = positions[legalMove.file + legalMove.rank]
+        const legalMovestyle = {
           width: defaults.square.size,
           height: defaults.square.size,
           top: `${possibleCoordinates.y}px`,
@@ -232,8 +199,8 @@ const ShowPossibleMoves = props => {
         return (
           <div
             key={key}
-            className='possibleMove'
-            style={possibleMoveStyle}
+            className='legalMove'
+            style={legalMovestyle}
           />
         )
       })}
@@ -302,7 +269,7 @@ const fenToArray = props => {
 
 const Board = () => {
   const [pieces, setPieces] = useState(defaultCoordinates)
-  const [possibleMoves, setPossibleMoves] = useState([])
+  const [legalMoves, setLegalMoves] = useState([])
   const [selectedPiece, setSelectedPiece] = useState({ color: '', name: '', coordinates: { file: '', rank: '' } })
   const selectedPieceReadable = selectedPiece.color
     ? `${selectedPiece.color} ${selectedPiece.name} ${selectedPiece.coordinates.file}${selectedPiece.coordinates.rank}`
@@ -348,10 +315,10 @@ const Board = () => {
               pieces={pieces}
               setPieces={setPieces}
               selectedPiece={selectedPiece}
-              setPossibleMoves={setPossibleMoves}
+              setLegalMoves={setLegalMoves}
               setSelectedPiece={setSelectedPiece}
             />
-            <ShowPossibleMoves possibleMoves={possibleMoves} />
+            <ShowLegalMoves legalMoves={legalMoves} />
           </div>
         </div>
 

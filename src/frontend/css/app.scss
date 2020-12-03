@@ -55,7 +55,7 @@ body, input, textarea, button, select {
           background-repeat: no-repeat;
         }
 
-        .possibleMove {
+        .legalMove {
           z-index: 2;
           position: absolute;
           &:after {
