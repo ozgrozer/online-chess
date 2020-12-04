@@ -59,10 +59,10 @@ body, input, textarea, button, select {
           z-index: 2;
           position: absolute;
           &:after {
-            top: 30%;
-            left: 30%;
-            width: 40%;
-            height: 40%;
+            top: 35%;
+            left: 35%;
+            width: 30%;
+            height: 30%;
             content: '';
             border-radius: 50%;
             position: absolute;
