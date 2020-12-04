@@ -21,21 +21,18 @@ const rookMoves = props => {
   const { piece, defaults, files } = props
   const { coordinates } = piece
   const { file, rank } = coordinates
+  const fileIndex = files.indexOf(file)
 
   const possibleMoves = []
 
-  for (let col = 0; col < defaults.board.cols; col++) {
-    const newFile = (rank - 1) !== col ? files[col] : ''
-    if (newFile) {
-      possibleMoves.push({ rank, file: newFile })
-    }
+  for (let i = 0; i < defaults.board.cols; i++) {
+    const newFile = i === fileIndex ? null : files[i]
+    if (newFile) possibleMoves.push({ rank, file: newFile })
   }
 
-  for (let row = 0; row < defaults.board.rows; row++) {
-    const newRank = (rank) !== row ? row : ''
-    if (newRank) {
-      possibleMoves.push({ rank: newRank, file })
-    }
+  for (let i = 1; i <= defaults.board.rows; i++) {
+    const newRank = i === rank ? null : i
+    if (newRank) possibleMoves.push({ rank: newRank, file })
   }
 
   return possibleMoves
