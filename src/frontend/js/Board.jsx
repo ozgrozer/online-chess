@@ -130,7 +130,7 @@ const PlacePieces = props => {
 
   const pieceOnClick = piece => {
     setSelectedPiece(piece)
-    const legalMoves_ = legalMoves({ piece, defaults, files })
+    const legalMoves_ = legalMoves({ piece, pieces, defaults, files })
     setLegalMoves(legalMoves_)
   }
 
