@@ -4,7 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import './../css/app.scss'
-import Board from './Board'
+import Board from './components/Board'
 
 const App = () => {
   return (

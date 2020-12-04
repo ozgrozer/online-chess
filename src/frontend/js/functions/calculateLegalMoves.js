@@ -38,7 +38,7 @@ const rookMoves = props => {
   return possibleMoves
 }
 
-const legalMoves = props => {
+const calculateLegalMoves = props => {
   const pieces = {
     pawn: pawnMoves,
     rook: rookMoves
@@ -47,4 +47,4 @@ const legalMoves = props => {
   return pieces[props.piece.name](props)
 }
 
-module.exports = legalMoves
+module.exports = calculateLegalMoves
