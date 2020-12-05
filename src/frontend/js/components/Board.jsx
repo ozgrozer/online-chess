@@ -1,6 +1,7 @@
-/* eslint react/jsx-fragments: 0 */
+/* eslint react/jsx-fragments: 0, no-new: 0 */
 
 import React, { useState } from 'react'
+import { Howl } from 'howler'
 
 import movePieceInArray from './../functions/movePieceInArray'
 import { arrayToFen, fenToArray } from './../functions/fenConvert'
@@ -22,6 +23,10 @@ import whiteKnight from './../../img/pieces/whiteKnight.png'
 import whitePawn from './../../img/pieces/whitePawn.png'
 import whiteQueen from './../../img/pieces/whiteQueen.png'
 import whiteRook from './../../img/pieces/whiteRook.png'
+
+import captureSfx from './../../sfx/pieces/capture.mp3'
+import moveSelfSfx from './../../sfx/pieces/moveSelf.mp3'
+import moveOpponentSfx from './../../sfx/pieces/moveOpponent.mp3'
 
 const defaults = {
   board: {
@@ -70,6 +75,11 @@ const defaults = {
       ['P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'],
       ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R']
     ]
+  },
+  sfx: {
+    capture: captureSfx,
+    moveSelf: moveSelfSfx,
+    moveOpponent: moveOpponentSfx
   }
 }
 
@@ -82,6 +92,17 @@ for (let rank = 0; rank < defaults.board.cols; rank++) {
       y: (defaults.square.size * (defaults.board.cols - rankForObject))
     }
   }
+}
+
+(function () {
+  for (const key in defaults.sfx) {
+    const sfx = defaults.sfx[key]
+    new Howl({ preload: true, src: [sfx] })
+  }
+})()
+const playSound = name => {
+  const sound = new window.Howl({ src: [defaults.sfx[name]] })
+  sound.play()
 }
 
 const Board = () => {
@@ -142,6 +163,7 @@ const Board = () => {
             <ShowLegalMoves
               pieces={pieces}
               defaults={defaults}
+              playSound={playSound}
               setPieces={setPieces}
               positions={positions}
               legalMoves={legalMoves}

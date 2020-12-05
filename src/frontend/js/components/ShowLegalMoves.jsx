@@ -1,7 +1,7 @@
 import React from 'react'
 
 const ShowLegalMoves = props => {
-  const { pieces, defaults, setPieces, positions, legalMoves, setLegalMoves, selectedPiece, setSelectedPiece, movePieceInArray } = props
+  const { pieces, defaults, playSound, setPieces, positions, legalMoves, setLegalMoves, selectedPiece, setSelectedPiece, movePieceInArray } = props
 
   const legalMoveOnClick = props => {
     const oldCoordinates = selectedPiece.coordinates
@@ -10,6 +10,12 @@ const ShowLegalMoves = props => {
     setPieces(newPieces)
     setLegalMoves([])
     setSelectedPiece({})
+
+    if (selectedPiece.color === 'black') {
+      playSound('moveOpponent')
+    } else {
+      playSound('moveSelf')
+    }
   }
 
   return (
