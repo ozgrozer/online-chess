@@ -1,6 +1,6 @@
 /* eslint react/jsx-fragments: 0, no-new: 0 */
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Howl } from 'howler'
 
 import pieceImages from './../functions/pieceImages'
@@ -23,7 +23,7 @@ const defaults = {
     files: 'abcdefgh'
   },
   square: {
-    size: 50,
+    size: window.innerWidth <= 768 ? ((window.innerWidth - 40) / 8) : 60,
     colors: {
       first: '#f0d9b5',
       second: '#b58863',

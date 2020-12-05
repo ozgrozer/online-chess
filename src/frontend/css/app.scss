@@ -17,7 +17,7 @@ body, input, textarea, button, select {
 
 #root {
   @media (max-width: $tablet-max) {
-    padding: 7px;
+    padding: 20px;
   }
   @media (min-width: $computer-min) {
     padding: 50px;
