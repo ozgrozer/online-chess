@@ -17,7 +17,7 @@ body, input, textarea, button, select {
 
 #root {
   @media (max-width: $tablet-max) {
-    padding: 20px;
+    padding: 7px;
   }
   @media (min-width: $computer-min) {
     padding: 50px;
@@ -46,7 +46,7 @@ body, input, textarea, button, select {
       @media (min-width: $computer-min) {
         width: 50%;
         float: left;
-        padding-right: 30px;
+        padding-right: 20px;
       }
 
       .board {
@@ -95,7 +95,7 @@ body, input, textarea, button, select {
       @media (min-width: $computer-min) {
         width: 50%;
         float: left;
-        padding-left: 30px;
+        padding-left: 20px;
       }
 
       .selectedPiece {
@@ -125,6 +125,7 @@ h2 {
 textarea {
   padding: 10px;
   outline: none;
+  font-size: 17px;
   border: 1px solid #999;
   &:focus {
     border-color: #000;
