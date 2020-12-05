@@ -16,7 +16,12 @@ body, input, textarea, button, select {
 }
 
 #root {
-  padding: 50px;
+  @media (max-width: $tablet-max) {
+    padding: 20px;
+  }
+  @media (min-width: $computer-min) {
+    padding: 50px;
+  }
 
   h2 {
     text-align: center;
