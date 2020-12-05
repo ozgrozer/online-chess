@@ -1,3 +1,5 @@
+@import './variables';
+
 * {
   box-sizing: border-box;
 }
@@ -34,14 +36,22 @@ body, input, textarea, button, select {
     }
 
     .boardLeft {
-      width: 50%;
-      float: left;
-      padding-right: 30px;
+      @media (max-width: $tablet-max) {
+      }
+      @media (min-width: $computer-min) {
+        width: 50%;
+        float: left;
+        padding-right: 30px;
+      }
 
       .board {
-        float: right;
         user-select: none;
         position: relative;
+        @media (max-width: $tablet-max) {
+        }
+        @media (min-width: $computer-min) {
+          float: right;
+        }
 
         .square {
           position: absolute;
@@ -74,9 +84,14 @@ body, input, textarea, button, select {
     }
 
     .boardRight {
-      width: 50%;
-      float: left;
-      padding-left: 30px;
+      @media (max-width: $tablet-max) {
+        margin-top: 30px;
+      }
+      @media (min-width: $computer-min) {
+        width: 50%;
+        float: left;
+        padding-left: 30px;
+      }
 
       .selectedPiece {
       }
