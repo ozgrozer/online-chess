@@ -36,14 +36,15 @@ const PlacePieces = props => {
                   height: defaults.square.size,
                   top: `${piecePositions.y}px`,
                   left: `${piecePositions.x}px`,
-                  backgroundColor: selected ? defaults.square.colors.selected : '',
-                  backgroundImage: `url(${defaults.piece.images[`${color}-${name}`]})`
+                  backgroundColor: selected ? defaults.square.colors.selected : ''
                 }
+                const imageUrl = `${defaults.piece.images[`${color}-${name}`]}`
 
                 return (
-                  <div
+                  <img
                     key={key2}
                     style={style}
+                    src={imageUrl}
                     className='piece'
                     onClick={() => pieceOnClick(piece)}
                   />
