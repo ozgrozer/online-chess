@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import { Howl } from 'howler'
 
+import pieceImages from './../functions/pieceImages'
 import movePieceInArray from './../functions/movePieceInArray'
 import { arrayToFen, fenToArray } from './../functions/fenConvert'
 import calculateLegalMoves from './../functions/calculateLegalMoves'
@@ -10,19 +11,6 @@ import calculateLegalMoves from './../functions/calculateLegalMoves'
 import MakeSquares from './MakeSquares'
 import PlacePieces from './PlacePieces'
 import ShowLegalMoves from './ShowLegalMoves'
-
-import blackBishop from './../../img/pieces/svg/blackBishop.svg'
-import blackKing from './../../img/pieces/svg/blackKing.svg'
-import blackKnight from './../../img/pieces/svg/blackKnight.svg'
-import blackPawn from './../../img/pieces/svg/blackPawn.svg'
-import blackQueen from './../../img/pieces/svg/blackQueen.svg'
-import blackRook from './../../img/pieces/svg/blackRook.svg'
-import whiteBishop from './../../img/pieces/svg/whiteBishop.svg'
-import whiteKing from './../../img/pieces/svg/whiteKing.svg'
-import whiteKnight from './../../img/pieces/svg/whiteKnight.svg'
-import whitePawn from './../../img/pieces/svg/whitePawn.svg'
-import whiteQueen from './../../img/pieces/svg/whiteQueen.svg'
-import whiteRook from './../../img/pieces/svg/whiteRook.svg'
 
 import captureSfx from './../../sfx/pieces/capture.mp3'
 import moveSelfSfx from './../../sfx/pieces/moveSelf.mp3'
@@ -52,18 +40,18 @@ const defaults = {
       p: 'pawn'
     },
     images: {
-      'black-bishop': blackBishop,
-      'black-king': blackKing,
-      'black-knight': blackKnight,
-      'black-pawn': blackPawn,
-      'black-queen': blackQueen,
-      'black-rook': blackRook,
-      'white-bishop': whiteBishop,
-      'white-king': whiteKing,
-      'white-knight': whiteKnight,
-      'white-pawn': whitePawn,
-      'white-queen': whiteQueen,
-      'white-rook': whiteRook
+      'black-bishop': pieceImages.blackBishop,
+      'black-king': pieceImages.blackKing,
+      'black-knight': pieceImages.blackKnight,
+      'black-pawn': pieceImages.blackPawn,
+      'black-queen': pieceImages.blackQueen,
+      'black-rook': pieceImages.blackRook,
+      'white-bishop': pieceImages.whiteBishop,
+      'white-king': pieceImages.whiteKing,
+      'white-knight': pieceImages.whiteKnight,
+      'white-pawn': pieceImages.whitePawn,
+      'white-queen': pieceImages.whiteQueen,
+      'white-rook': pieceImages.whiteRook
     },
     coordinates: [
       ['r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'],
