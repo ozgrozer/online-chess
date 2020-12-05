@@ -18,9 +18,10 @@ const pawnMoves = props => {
 }
 
 const rookMoves = props => {
-  const { piece, defaults, files } = props
+  const { piece, defaults } = props
   const { coordinates } = piece
   const { file, rank } = coordinates
+  const { files } = defaults.board
   const fileIndex = files.indexOf(file)
 
   const possibleMoves = []

@@ -1,11 +1,11 @@
 import React from 'react'
 
 const PlacePieces = props => {
-  const { pieces, selectedPiece, setSelectedPiece, setLegalMoves, files, defaults, positions, calculateLegalMoves } = props
+  const { pieces, selectedPiece, setSelectedPiece, setLegalMoves, defaults, positions, calculateLegalMoves } = props
 
   const pieceOnClick = piece => {
     setSelectedPiece(piece)
-    const legalMoves = calculateLegalMoves({ piece, pieces, defaults, files })
+    const legalMoves = calculateLegalMoves({ piece, pieces, defaults })
     setLegalMoves(legalMoves)
   }
 
@@ -15,7 +15,7 @@ const PlacePieces = props => {
         return (
           <div key={key1} className='pieceRow'>
             {pieceRow.map((pieceLetter, key2) => {
-              const file = files[key2]
+              const file = defaults.board.files[key2]
               const rank = defaults.board.cols - key1
               const piecePositions = positions[file + rank]
               const color = pieceLetter === pieceLetter.toLowerCase() ? 'black' : 'white'

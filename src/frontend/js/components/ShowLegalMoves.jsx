@@ -1,13 +1,21 @@
 import React from 'react'
 
 const ShowLegalMoves = props => {
-  const { legalMoves, defaults, positions } = props
+  const { pieces, defaults, setPieces, positions, legalMoves, setLegalMoves, selectedPiece, movePieceInArray } = props
+
+  const legalMoveOnClick = props => {
+    const oldCoordinates = selectedPiece.coordinates
+    const newCoordinates = props.legalMove
+    const newPieces = movePieceInArray({ defaults, pieces, selectedPiece, oldCoordinates, newCoordinates })
+    setPieces(newPieces)
+    setLegalMoves([])
+  }
 
   return (
     <div className='legalMoves'>
       {legalMoves.map((legalMove, key) => {
         const possibleCoordinates = positions[legalMove.file + legalMove.rank]
-        const legalMovestyle = {
+        const legalMoveStyle = {
           width: defaults.square.size,
           height: defaults.square.size,
           top: `${possibleCoordinates.y}px`,
@@ -18,7 +26,8 @@ const ShowLegalMoves = props => {
           <div
             key={key}
             className='legalMove'
-            style={legalMovestyle}
+            style={legalMoveStyle}
+            onClick={() => legalMoveOnClick({ legalMove })}
           />
         )
       })}

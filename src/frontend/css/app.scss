@@ -57,6 +57,7 @@ body, input, textarea, button, select {
 
         .legalMove {
           z-index: 2;
+          cursor: pointer;
           position: absolute;
           &:after {
             top: 35%;
