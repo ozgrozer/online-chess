@@ -1,6 +1,6 @@
 /* eslint react/jsx-fragments: 0, no-new: 0 */
 
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Howl } from 'howler'
 
 import pieceImages from './../functions/pieceImages'
