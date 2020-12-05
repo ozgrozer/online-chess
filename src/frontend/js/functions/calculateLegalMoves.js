@@ -1,22 +1,3 @@
-const pawnMoves = props => {
-  const { piece } = props
-  const { color, coordinates } = piece
-  const { file, rank } = coordinates
-
-  const possibleMoves = []
-
-  const nextRank = color === 'white' ? rank + 1 : rank - 1
-  possibleMoves.push({ rank: nextRank, file })
-
-  const startingRank = color === 'white' ? 2 : 7
-  if (rank === startingRank) {
-    const nextRank = color === 'white' ? rank + 2 : rank - 2
-    possibleMoves.push({ rank: nextRank, file })
-  }
-
-  return possibleMoves
-}
-
 const rookMoves = props => {
   const { piece, defaults } = props
   const { coordinates } = piece
@@ -39,10 +20,53 @@ const rookMoves = props => {
   return possibleMoves
 }
 
+const knightMoves = props => {
+  const possibleMoves = []
+  return possibleMoves
+}
+
+const bishopMoves = props => {
+  const possibleMoves = []
+  return possibleMoves
+}
+
+const queenMoves = props => {
+  const possibleMoves = []
+  return possibleMoves
+}
+
+const kingMoves = props => {
+  const possibleMoves = []
+  return possibleMoves
+}
+
+const pawnMoves = props => {
+  const { piece } = props
+  const { color, coordinates } = piece
+  const { file, rank } = coordinates
+
+  const possibleMoves = []
+
+  const nextRank = color === 'white' ? rank + 1 : rank - 1
+  possibleMoves.push({ rank: nextRank, file })
+
+  const startingRank = color === 'white' ? 2 : 7
+  if (rank === startingRank) {
+    const nextRank = color === 'white' ? rank + 2 : rank - 2
+    possibleMoves.push({ rank: nextRank, file })
+  }
+
+  return possibleMoves
+}
+
 const calculateLegalMoves = props => {
   const pieces = {
-    pawn: pawnMoves,
-    rook: rookMoves
+    rook: rookMoves,
+    knight: knightMoves,
+    bishop: bishopMoves,
+    queen: queenMoves,
+    king: kingMoves,
+    pawn: pawnMoves
   }
 
   return pieces[props.piece.name](props)
