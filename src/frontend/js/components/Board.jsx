@@ -87,7 +87,7 @@ for (let rank = 0; rank < defaults.board.cols; rank++) {
 const Board = () => {
   const [pieces, setPieces_] = useState(defaults.piece.coordinates)
   const [legalMoves, setLegalMoves] = useState([])
-  const [selectedPiece, setSelectedPiece] = useState({ color: '', name: '', coordinates: { file: '', rank: '' } })
+  const [selectedPiece, setSelectedPiece] = useState({})
   const selectedPieceReadable = selectedPiece.color
     ? `${selectedPiece.color} ${selectedPiece.name} ${selectedPiece.coordinates.file}${selectedPiece.coordinates.rank}`
     : 'waiting...'
@@ -147,6 +147,7 @@ const Board = () => {
               legalMoves={legalMoves}
               setLegalMoves={setLegalMoves}
               selectedPiece={selectedPiece}
+              setSelectedPiece={setSelectedPiece}
               movePieceInArray={movePieceInArray}
             />
           </div>
