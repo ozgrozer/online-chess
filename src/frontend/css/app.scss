@@ -125,7 +125,10 @@ h2 {
 textarea {
   padding: 10px;
   outline: none;
-  font-size: 17px;
+  font-size: 16px;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
   border: 1px solid #999;
   &:focus {
     border-color: #000;
