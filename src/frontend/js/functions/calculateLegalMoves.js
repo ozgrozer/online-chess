@@ -1,5 +1,17 @@
+const getPieceOnCoordinate = props => {
+  const { defaults, pieces, file, rank } = props
+  const { files } = defaults.board
+
+  const oldRankIndex = defaults.board.rows - rank
+  const oldFileIndex = files.indexOf(file)
+  const letter = pieces[oldRankIndex][oldFileIndex]
+
+  const { color, name } = defaults.piece.names[letter]
+  return { letter, color, name }
+}
+
 const rookMoves = props => {
-  const { piece, defaults } = props
+  const { piece, pieces, defaults } = props
   const { coordinates } = piece
   const { file, rank } = coordinates
   const { files } = defaults.board
@@ -15,6 +27,19 @@ const rookMoves = props => {
   for (let i = 1; i <= defaults.board.rows; i++) {
     const newRank = i === rank ? null : i
     if (newRank) possibleMoves.push({ rank: newRank, file })
+  }
+
+  for (const key in possibleMoves) {
+    const { file, rank } = possibleMoves[key]
+    const { color, name, letter } = getPieceOnCoordinate({ defaults, pieces, file, rank })
+
+    if (letter !== '.') {
+      console.log({ file, rank, color, name })
+
+      if (piece.color === color) {
+        delete possibleMoves[key]
+      }
+    }
   }
 
   return possibleMoves

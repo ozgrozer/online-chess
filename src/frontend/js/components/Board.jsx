@@ -32,12 +32,19 @@ const defaults = {
   },
   piece: {
     names: {
-      r: 'rook',
-      n: 'knight',
-      b: 'bishop',
-      q: 'queen',
-      k: 'king',
-      p: 'pawn'
+      '.': { color: '', name: '' },
+      r: { color: 'black', name: 'rook' },
+      n: { color: 'black', name: 'knight' },
+      b: { color: 'black', name: 'bishop' },
+      q: { color: 'black', name: 'queen' },
+      k: { color: 'black', name: 'king' },
+      p: { color: 'black', name: 'pawn' },
+      R: { color: 'white', name: 'rook' },
+      N: { color: 'white', name: 'knight' },
+      B: { color: 'white', name: 'bishop' },
+      Q: { color: 'white', name: 'queen' },
+      K: { color: 'white', name: 'king' },
+      P: { color: 'white', name: 'pawn' }
     },
     images: {
       'black-bishop': pieceImages.blackBishop,

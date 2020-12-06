@@ -18,8 +18,7 @@ const PlacePieces = props => {
               const file = defaults.board.files[key2]
               const rank = defaults.board.cols - key1
               const piecePositions = positions[file + rank]
-              const color = pieceLetter === pieceLetter.toLowerCase() ? 'black' : 'white'
-              const name = defaults.piece.names[pieceLetter.toLowerCase()]
+              const { color, name } = defaults.piece.names[pieceLetter]
               const selected = selectedPiece.key1 === key1 && selectedPiece.key2 === key2 && name
 
               if (name) {
